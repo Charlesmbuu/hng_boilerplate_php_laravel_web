@@ -41,6 +41,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/auth/login', [LoginController::class, 'login']);
     Route::post('/auth/logout', [LoginController::class, 'logout'])->middleware('auth:api');
     Route::post('/roles', [RoleController::class, 'store']);
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 
     Route::apiResource('/users', UserController::class);
 
@@ -58,6 +59,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function () {
         // Products
         Route::post('/products', [ProductController::class, 'store']);
+        Route::get('/products/categories', 'ProductController@categories');
 
         // Subscriptions, Plans and Features
         Route::apiResource('/features', FeatureController::class);
